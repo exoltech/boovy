@@ -1,0 +1,85 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: |
+        npm ci
+        cd frontend && npm ci
+        cd ../backend && npm ci
+    
+    - name: Lint frontend
+      run: cd frontend && npm run lint
+    
+    - name: Lint backend
+      run: cd backend && npm run lint
+    
+    - name: Test frontend
+      run: cd frontend && npm test
+    
+    - name: Test backend
+      run: cd backend && npm test
+    
+    - name: Build frontend
+      run: cd frontend && npm run build
+    
+    - name: Build backend
+      run: cd backend && npm run build
+
+  security:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Run security audit
+      run: |
+        npm audit --audit-level moderate
+        cd frontend && npm audit --audit-level moderate
+        cd ../backend && npm audit --audit-level moderate
+
+  deploy-staging:
+    needs: [test, security]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Deploy to staging
+      run: echo "Deploy to staging environment"
+      # Add your staging deployment steps here
+
+  deploy-production:
+    needs: [test, security]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Deploy to production
+      run: echo "Deploy to production environment"
+      # Add your production deployment steps here
+

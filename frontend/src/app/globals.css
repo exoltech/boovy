@@ -1,0 +1,277 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS Variables for themes */
+:root {
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  --primary: 222.2 47.4% 11.2%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 222.2 84% 4.9%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: 210 40% 96%;
+  --accent-foreground: 222.2 84% 4.9%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 222.2 84% 4.9%;
+  --radius: 0.5rem;
+}
+
+/* Neon Theme */
+.theme-neon {
+  --background: 222 84% 5%;
+  --foreground: 210 40% 98%;
+  --card: 222 84% 5%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222 84% 5%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 217 91% 60%;
+  --primary-foreground: 222 84% 5%;
+  --secondary: 217 32% 17%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217 32% 17%;
+  --muted-foreground: 215 20% 65%;
+  --accent: 317 100% 74%;
+  --accent-foreground: 222 84% 5%;
+  --destructive: 0 62% 30%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 217 32% 17%;
+  --input: 217 32% 17%;
+  --ring: 217 91% 60%;
+}
+
+/* Retro Theme */
+.theme-retro {
+  --background: 120 100% 5%;
+  --foreground: 120 100% 90%;
+  --card: 120 100% 5%;
+  --card-foreground: 120 100% 90%;
+  --popover: 120 100% 5%;
+  --popover-foreground: 120 100% 90%;
+  --primary: 120 100% 50%;
+  --primary-foreground: 120 100% 5%;
+  --secondary: 120 50% 15%;
+  --secondary-foreground: 120 100% 90%;
+  --muted: 120 50% 15%;
+  --muted-foreground: 120 30% 70%;
+  --accent: 120 100% 70%;
+  --accent-foreground: 120 100% 5%;
+  --destructive: 0 62% 30%;
+  --destructive-foreground: 120 100% 90%;
+  --border: 120 50% 15%;
+  --input: 120 50% 15%;
+  --ring: 120 100% 50%;
+}
+
+/* Lo-Fi Theme */
+.theme-lofi {
+  --background: 45 29% 97%;
+  --foreground: 45 29% 7%;
+  --card: 45 29% 97%;
+  --card-foreground: 45 29% 7%;
+  --popover: 45 29% 97%;
+  --popover-foreground: 45 29% 7%;
+  --primary: 142 76% 36%;
+  --primary-foreground: 45 29% 97%;
+  --secondary: 45 29% 90%;
+  --secondary-foreground: 45 29% 7%;
+  --muted: 45 29% 90%;
+  --muted-foreground: 45 15% 50%;
+  --accent: 45 100% 70%;
+  --accent-foreground: 45 29% 7%;
+  --destructive: 0 62% 50%;
+  --destructive-foreground: 45 29% 97%;
+  --border: 45 29% 85%;
+  --input: 45 29% 85%;
+  --ring: 142 76% 36%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Animated Backgrounds */
+.animated-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Neon animated background */
+.theme-neon .animated-bg {
+  background: linear-gradient(45deg, #0f0f23, #1a1a2e, #16213e);
+  background-size: 400% 400%;
+  animation: neonGradient 8s ease-in-out infinite;
+}
+
+.theme-neon .animated-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
+  animation: neonFloat 6s ease-in-out infinite;
+}
+
+/* Retro animated background */
+.theme-retro .animated-bg {
+  background: linear-gradient(45deg, #001100, #002200, #003300);
+  background-size: 400% 400%;
+  animation: retroGradient 10s ease-in-out infinite;
+}
+
+.theme-retro .animated-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(90deg, transparent 98%, rgba(0, 255, 0, 0.1) 100%),
+    linear-gradient(0deg, transparent 98%, rgba(0, 255, 0, 0.1) 100%);
+  background-size: 50px 50px;
+  animation: retroGrid 20s linear infinite;
+}
+
+/* Lo-Fi animated background */
+.theme-lofi .animated-bg {
+  background: linear-gradient(45deg, #f7f3e9, #f0ead2, #ddbea9);
+  background-size: 400% 400%;
+  animation: lofiGradient 12s ease-in-out infinite;
+}
+
+.theme-lofi .animated-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 30% 30%, rgba(168, 218, 181, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(222, 190, 169, 0.2) 0%, transparent 50%);
+  animation: lofiFloat 8s ease-in-out infinite;
+}
+
+/* Animations */
+@keyframes neonGradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes neonFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-10px) rotate(1deg); }
+  66% { transform: translateY(5px) rotate(-1deg); }
+}
+
+@keyframes retroGradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes retroGrid {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(50px, 50px); }
+}
+
+@keyframes lofiGradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes lofiFloat {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-5px) scale(1.02); }
+}
+
+/* Glow effects */
+.glow-text {
+  text-shadow: 0 0 10px currentColor;
+}
+
+.theme-neon .glow-text {
+  text-shadow: 
+    0 0 5px currentColor,
+    0 0 10px currentColor,
+    0 0 15px currentColor;
+}
+
+.theme-retro .glow-text {
+  text-shadow: 
+    0 0 5px currentColor,
+    0 0 10px currentColor;
+}
+
+/* Utility classes */
+.bg-background {
+  background-color: hsl(var(--background));
+}
+
+.text-foreground {
+  color: hsl(var(--foreground));
+}
+
+.bg-card {
+  background-color: hsl(var(--card));
+}
+
+.text-card-foreground {
+  color: hsl(var(--card-foreground));
+}
+
+.bg-primary {
+  background-color: hsl(var(--primary));
+}
+
+.text-primary {
+  color: hsl(var(--primary));
+}
+
+.text-primary-foreground {
+  color: hsl(var(--primary-foreground));
+}
+
+.bg-secondary {
+  background-color: hsl(var(--secondary));
+}
+
+.text-secondary-foreground {
+  color: hsl(var(--secondary-foreground));
+}
+
+.text-muted-foreground {
+  color: hsl(var(--muted-foreground));
+}
+
+.text-accent {
+  color: hsl(var(--accent));
+}
+
+.border-primary {
+  border-color: hsl(var(--primary));
+}
+
